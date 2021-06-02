@@ -42,7 +42,7 @@ struct ContentView: View {
     }
     
     func regionToString(_ region: MKCoordinateRegion) -> String {
-        "\(region.center.latitude), \(region.center.longitude)"
+      String(format: "%0.4f, %0.4f", region.center.latitude, region.center.longitude)
     }
     
     let locationManager = CLLocationManager()

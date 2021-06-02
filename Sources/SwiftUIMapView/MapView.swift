@@ -218,14 +218,12 @@ public struct MapView: UIViewRepresentable {
         }
         
         // MARK: MKMapViewDelegate
+        // Delegate methods are called on the main thread per docs
         public func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
             guard let mapAnnotation = view.annotation as? MapViewAnnotation else {
                 return
             }
-            
-            DispatchQueue.main.async {
-                self.context.selectedAnnotations.append(mapAnnotation)
-            }
+            self.context.selectedAnnotations.append(mapAnnotation)
         }
         
         public func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
@@ -237,15 +235,13 @@ public struct MapView: UIViewRepresentable {
                 return
             }
             
-            DispatchQueue.main.async {
-                self.context.selectedAnnotations.remove(at: index)
-            }
+            self.context.selectedAnnotations.remove(at: index)
         }
         
         public func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-            DispatchQueue.main.async {
-                self.context.region = mapView.region
-            }
+
+            self.context.region = mapView.region
+
         }
         
     }
